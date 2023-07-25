@@ -1,0 +1,98 @@
+div.el-textarea.product-des{
+    padding:0 20px;
+}
+div.el-input.el-text{
+    padding:0 20px;
+}
+div.el-textarea{
+    padding:0 20px;
+}
+textarea.el-textarea__inner{   
+    margin-left:26px;
+    margin-right:26px;
+    margin-bottom:30px;
+    display:block;
+    border: 1px solid #BBBBBB;
+    font-size: 22px !important;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    width: 1100px;
+    height: 82px;
+    
+}
+.el-textarea__inner:focus{
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 0 2px #0D47E7;
+}
+textarea.el-textarea__inner::-webkit-input-placeholder{  
+    color: #d6d6d6;
+}
+textarea.el-textarea__inner::-moz-placeholder{   
+    color: #d6d6d6;
+} 
+textarea.el-textarea__inner::-ms-input-placeholder{ 
+    color: #d6d6d6;
+}
+.el-textarea .el-input__count{
+    position: relative !important;
+    left: 1080px !important;
+    top:-50px;
+}
+.el-textarea{
+    width: 720px;
+    height: 82px;
+}
+div.el-input.el-text{
+    width: 720px;
+    height: 68px;
+}
+input.el-input__inner{
+    width:600px;
+    margin-left:26px;
+    margin-right:26px;
+    margin-bottom:30px;
+    display:block;
+    border: 1px solid #BBBBBB;
+    font-size: 22px !important;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    height: 43px;
+}
+span.el-input__count-inner{
+    position: relative;
+    left:-110px;
+}
+input.el-input__inner:focus{
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 0 2px #0D47E7;
+}
+input.el-input__inner::-webkit-input-placeholder{  
+    color: #d6d6d6;
+}
+input.el-input__inner::-moz-placeholder{   
+    color: #d6d6d6;
+} 
+input.el-input__inner::-ms-input-placeholder{ 
+    color: #d6d6d6;
+}
+
+button.el-button.el-button--primary{
+    background: #0D47E7; 
+    width:100px;
+    height:48px;
+    font-size: 24px;
+
+}
+
+span.el-dialog__title{
+    font-size: 20px !important;
+    font-family: PingFangSC-Regular, PingFang SC !important;
+    font-weight: 400;
+}
+div.el-dialog__footer{
+    display: flex;
+    justify-content: center;
+}
+:root{
+    --el-color-primary: white;
+}

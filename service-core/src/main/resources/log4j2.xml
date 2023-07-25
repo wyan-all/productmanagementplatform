@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" strict="true" name="XMLConfigTest"
+               packages="org.apache.logging.log4j.test">
+  <Properties>
+    <!-- <Property name="dir">${sys:catalina.home}/logs</Property> -->
+    <Property name="dir">e:/eclipse-logs/logs</Property> 
+    <Property name="projectName">services</Property>
+    <Property name="mainFile">${projectName}</Property>
+    <Property name="errorFile">${projectName}-error</Property>
+    <Property name="fileSuffix">log</Property>
+    <Property name="mainPattern">[%d{ISO8601}]  [%X{X-REQUEST-ID}] [%X{WEB_SESSION_ID}] [%X{WEB_SESSION_USER}] [%p] [%t] [${projectName}]  [%c{10}] %m %throwable{separator(####)}%n</Property>
+    <Property name="errorPattern">[%d{ISO8601}]  [%X{X-REQUEST-ID}] [%X{WEB_SESSION_ID}] [%X{WEB_SESSION_USER}] [%p] [%t] [${projectName}]  [%c{10}] %m %throwable%n</Property>
+    <Property name="jsonPattern">{"eventTime":"%d{yyyy-MM-dd'T'HH:mm:ss.SSS}","traceId":"%X{X-REQUEST-ID}","sessionId":"%X{WEB_SESSION_ID}","user":"%replace{%X{WEB_SESSION_USER}}{\"}{\\\"}","level":"%p","thread":"%t","applicationName":"${projectName}","logger":"%c{10}","message":"%replace{%m}{\"}{\\\"}","exception":"%replace{%throwable{separator(####)}}{\"}{\\\"}"}%n</Property>
+  </Properties>
+  <!--  >Filter type="ThresholdFilter" level="trace"/-->
+ 
+  <Appenders>
+    <Appender type="Console" name="STDOUT">
+      <Layout type="PatternLayout" pattern="${errorPattern}"/>
+    </Appender>
+    
+    <Appender type="Console" name="JSONSTDOUT">
+       <Layout type="PatternLayout" pattern="${jsonPattern}"/>
+    </Appender>
+    
+    <RollingFile name="MAIN_FILE_LOG" 
+			     filename="${dir}/${mainFile}.${fileSuffix}" 
+				 filePattern="${dir}/${mainFile}.%d{yyyy-MM-dd}.${fileSuffix}">
+		<PatternLayout pattern="${mainPattern}"/>
+		<Policies>
+			<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+		</Policies>
+		<DefaultRolloverStrategy max="2"/>
+    </RollingFile>
+    
+    <RollingFile name="JSON_FILE_LOG" 
+			     filename="${dir}/${mainFile}.json" 
+				 filePattern="${dir}/${mainFile}.%d{yyyy-MM-dd}.json">
+		<PatternLayout pattern="${jsonPattern}"/>
+		<Policies>
+			<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+		</Policies>
+		<DefaultRolloverStrategy max="2"/>
+    </RollingFile>
+    
+    <RollingFile name="ERROR_FILE_LOG" 
+			     filename="${dir}/${errorFile}.${fileSuffix}" 
+				 filePattern="${dir}/${errorFile}.%d{yyyy-MM-dd}.${fileSuffix}">
+		<PatternLayout pattern="${errorPattern}"/>
+		<ThresholdFilter level="ERROR" onMatch="ACCEPT"/>
+		<Policies>
+			<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+		</Policies>
+		<DefaultRolloverStrategy max="2"/>
+    </RollingFile>
+	
+	<Async name="ASYNC_FILE_LOG">
+	    <AppenderRef ref="MAIN_FILE_LOG"/>
+	    <AppenderRef ref="JSON_FILE_LOG"/>
+	    <AppenderRef ref="ERROR_FILE_LOG"/>
+	    <AppenderRef ref="STDOUT"/>
+    	<!--  AppenderRef ref="ERROR_MAIL"/ -->
+    </Async>
+    
+    <Async name="ASYNC_STD_LOG">
+	    <AppenderRef ref="STDOUT"/>
+	    <AppenderRef ref="ERROR_FILE_LOG"/>
+      	
+    </Async>	
+  </Appenders>
+ 
+  <Loggers>    
+    <Root level="info">
+       <AppenderRef ref="ASYNC_FILE_LOG"/>
+    </Root>    
+  </Loggers>
+ 
+</Configuration>
